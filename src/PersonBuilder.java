@@ -30,23 +30,23 @@ public class PersonBuilder {
     }
 
     public boolean doArgumentCheck() {
-        return (age>0)&&(age<140);
+        return (age>=0)&&(age<140);
     }
 
     public Person build() {
-        Person person = new Person(name, surname, age);
-        person.setAddress(address);
         if (!doStateCheck()) {
             throw new IllegalStateException("Не хватает обязательных полей!");
         }
         if (!doArgumentCheck()) {
             throw new IllegalArgumentException("Недопустимый возраст!");
         }
-        if (doStateCheck() &&doArgumentCheck()){
-            if (person.hasAge()) {
+        if (doStateCheck()){
+            if (doArgumentCheck()) {
+                Person person = new Person(name, surname, age);
+                person.setAddress(address);
                 return person;
             } else {
-                person = new Person(name,surname);
+                Person person = new Person(name,surname);
                 person.setAddress(address);
                 return person;
             }

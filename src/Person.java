@@ -58,8 +58,8 @@ public class Person {
 
     public PersonBuilder newChildBuilder() {
         PersonBuilder personBuilder = new PersonBuilder();
-        personBuilder.setSurname(getSurname());
-        if (hasAddress()) personBuilder.setAddress(getAddress());
+        personBuilder.setSurname(surname);
+        if (hasAddress()) personBuilder.setAddress(address);
         return personBuilder;
     }
 
