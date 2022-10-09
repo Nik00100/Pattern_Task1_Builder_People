@@ -8,20 +8,20 @@ public class Main {
                 .build();
         Person son = mom.newChildBuilder()
                 .setName("Антошка")
-                .setAge(0)
+                .setAge(10)
                 .build();
         System.out.println("У " + mom + " есть сын, " + son);
 
         try {
             // Не хватает обязательных полей
-            new PersonBuilder().build();
+            System.out.println(new PersonBuilder().build());
         } catch (IllegalStateException e) {
             e.printStackTrace();
         }
 
         try {
             // Возраст недопустимый
-            new PersonBuilder().setName("Иван").setSurname("Иванов").setAge(-100).build();
+            System.out.println(new PersonBuilder().setName("Иван").setSurname("Иванов").setAge(-100).build());
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
         }

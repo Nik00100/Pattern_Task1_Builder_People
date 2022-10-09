@@ -4,6 +4,7 @@ public class PersonBuilder {
     private int age;
     private String address;
 
+
     public PersonBuilder setName(String name) {
         this.name = name;
         return this;
@@ -15,6 +16,9 @@ public class PersonBuilder {
     }
 
     public PersonBuilder setAge(int age) {
+        if (!(age >= 0 && age < 140)) {
+            throw new IllegalArgumentException("Недопустимый возраст!");
+        }
         this.age = age;
         return this;
     }
@@ -24,32 +28,12 @@ public class PersonBuilder {
         return this;
     }
 
-    public boolean doStateCheck() {
-        return (name != null) && (surname != null);
-    }
-
-    public boolean doArgumentCheck() {
-        return (age>=0)&&(age<140);
-    }
-
     public Person build() {
-        if (!doStateCheck()) {
-            throw new IllegalStateException("Не хватает обязательных полей!");
+        Person person = new Person(name, surname, age);
+        person.setAddress(address);
+        if (person.getName() == null && person.getSurname() == null) {
+            throw new IllegalStateException("Указаны не все обязательные поля!");
         }
-        if (!doArgumentCheck()) {
-            throw new IllegalArgumentException("Недопустимый возраст!");
-        }
-        if (doStateCheck()){
-            if (doArgumentCheck()) {
-                Person person = new Person(name, surname, age);
-                person.setAddress(address);
-                return person;
-            } else {
-                Person person = new Person(name,surname);
-                person.setAddress(address);
-                return person;
-            }
-        }
-        return null;
+        return person;
     }
 }
